@@ -17,8 +17,11 @@ def print_header
 end
 
 def print(names)
-  names.each_with_index do |name, index|
-    puts "#{index+1}.#{name[:name]} (#{name[:cohort]} cohort)"
+  print_header()
+  idx = 0
+  while idx < names.count do
+    puts "#{names[idx][:name]} (#{names[idx][:cohort]} cohort)"
+    idx += 1
   end
 end
 
@@ -26,8 +29,15 @@ def print_wrt_firstletter(students)
   puts "Choose a letter"
   letter = gets.chomp
   print_header()
-  students.select{ |student| student[:name][0] == letter}.each do |selected_student|
-    puts "#{selected_student[:name]} (#{selected_student[:cohort]} cohort)"
+  students.select{ |student| student[:name][0] == letter}.each do |selected|
+    puts "#{selected[:name]} (#{selected[:cohort]} cohort)"
+  end
+end
+
+def print_wrt_size(students)
+  print_header()
+  students.select{|student| student[:name].size < 12}.each do |selected|
+    puts "#{selected[:name]} (#{selected[:cohort]} cohort)"
   end
 end
 
@@ -36,5 +46,5 @@ def print_footer(names)
 end
 # Nothing happens until we call the methods
 students = input_students()
-print_wrt_firstletter(students)
+print(students)
 print_footer(students)
