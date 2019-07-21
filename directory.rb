@@ -10,7 +10,8 @@ def input_students
     hobby = info_split[2]
     country = info_split[3]
     students << {name: name, cohort: cohort, hobby: hobby, country: country, cohort: cohort}
-    puts "Now we have #{students.count} students"
+    student_word = (students.count > 1)?"students":"student"
+    puts "Now we have #{students.count} #{student_word}"
     info = gets.chomp
   end
   students
