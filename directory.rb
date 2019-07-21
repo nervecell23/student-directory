@@ -10,6 +10,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "Students list now saved to file."
 end
 
 def try_load_students
@@ -70,6 +71,7 @@ def load_students(filename = "students.csv")
     @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country: dob}
   end
   file.close
+  puts "Loaded #{@students.count} from #{filename}"
 end
 
 def input_students
