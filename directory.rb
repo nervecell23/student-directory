@@ -30,6 +30,8 @@ end
 
 # Print students and their cohort by cohort
 def print_by_cohort(students)
+  puts "There is no student!" if students.count == 0
+  return
   print_header()
   students.group_by { |student| student[:cohort] }.each do |_, group|
     group.each { |student_in_grp| puts "#{student_in_grp[:name].center(10)} (#{student_in_grp[:cohort].to_s.center(10)} cohort)"}
