@@ -1,8 +1,10 @@
 @students = []
 
 def save_students
+  puts "What is the name of the file?"
+  filename = gets.chomp
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
