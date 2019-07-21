@@ -3,16 +3,15 @@
 def save_students
   puts "What is the name of the file?"
   filename = gets.chomp
-  # open the file for writing
-  file = File.open(filename, "w")
+  File.open(filename, "w") do |file|
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+    puts "Students list now saved to file."
   end
-  file.close
-  puts "Students list now saved to file."
 end
 
 def try_load_students
@@ -67,13 +66,12 @@ def interactive_menu
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort, hobby, dob = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country: dob}
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort, hobby, dob = line.chomp.split(',')
+      @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country: dob}
+    end
   end
-  file.close
-  puts "Loaded #{@students.count} from #{filename}"
 end
 
 def input_students
