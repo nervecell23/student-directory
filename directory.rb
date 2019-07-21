@@ -12,24 +12,15 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
-end
-
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
+  filename = "students.csv" if filename.nil?
   if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
-    exit
+    return
   end
 end
 
@@ -72,18 +63,23 @@ def interactive_menu
   end
 end
 
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
+  file.readlines.each do |line|
+  name, cohort, hobby, dob = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country: dob}
+  end
+  file.close
+end
+
 def input_students
   puts "Enter the name of the students, their cohort, their hobbies, country of birth with space"
   puts "To finish, hit return twice"
   students = []
   info = gets.chomp
   while !info.empty? do
-    info_split = info.split(" ")
-    name = info_split[0]
-    cohort = info_split[1].to_sym
-    hobby = info_split[2]
-    country = info_split[3]
-    students << {name: name, cohort: cohort, hobby: hobby, country: country, cohort: cohort}
+    name, cohort, hobby, dob = info.split(" ")
+    students << {name: name, cohort: cohort, hobby: hobby.to_sym, country: country}
     student_word = (students.count > 1)?"students":"student"
     puts "Now we have #{students.count} #{student_word}"
     info = gets.chomp
