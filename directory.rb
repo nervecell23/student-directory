@@ -1,3 +1,29 @@
+# Interactive menu
+def interactive_menu
+  students = []
+  loop do
+    # 1. print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit" # 9 because we'll be adding more items
+    # 2. read the input and save it into a variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      students = input_students()
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+    end
+  end
+end
+
 def input_students
   puts "Enter the name of the students, their cohort, their hobbies, country of birth with space"
   puts "To finish, hit return twice"
@@ -39,7 +65,6 @@ def print_by_cohort(students)
 end
 
 def print(names)
-  print_header()
   idx = 0
   while idx < names.count do
     puts "#{names[idx][:name].center(10)} (#{names[idx][:cohort]} cohort) from #{names[idx][:country]} loves #{names[idx][:hobby]}"
@@ -67,6 +92,4 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 # Nothing happens until we call the methods
-students = input_students()
-print_by_cohort(students)
-print_footer(students)
+interactive_menu()
